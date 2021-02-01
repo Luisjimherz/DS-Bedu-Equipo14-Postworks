@@ -70,4 +70,5 @@ ggplot(hvsv, aes(FTHG, FTAG))+
   ggtitle("Probability for game results") +
   ylab("Visitor") +
   xlab("Home") +
+  +  geom_text(aes(label = round(Freq, 2)))
 ggsave("postworw03joint.png")
