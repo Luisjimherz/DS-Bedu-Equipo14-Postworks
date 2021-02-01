@@ -25,43 +25,22 @@ totalObs <- sum(rowSums(df.tbl))
 
 
 # 3.1 (marginal) de que el equipo en casa anote x goles
-mingoals = min(df$FTHG)
-maxgoals = max(df$FTHG)
-homeMP <- data.frame(goals = mingoals:maxgoals, prob)
-homeMP
-for(g in mingoals:maxgoals){
-  homeMP[g+1,2] = (sum(df.tbl[g+1, ])/totalObs)
-}
-homeMP
-sum(homeMP[,2])
+df.tbl
+
+apply(df.tbl, 1, sum) /totalObs
+
+# 3.2 (marginal vistante)
+apply(df.tbl, 2, sum) /totalObs
+
+# 3.3 Probabilidades conjuntas
+df.tbl / totalObs
 
 
-# 3.2 (marginal) de que el equipo visitant anote y goles
-mingoals <- min(df$FTAG)
-maxgoals <- max(df$FTAG)
-visitMP <- data.frame(goals = mingoals:maxgoals, prob)
-visitMP
-for(g in mingoals:maxgoals){
-  visitMP[g+1,2] <- (sum(df.tbl[g+1, ])/totalObs)
-}
-visitMP
-sum(visitMP[,2])
 
 
-# 3.3 (joint) casa anote x y visit y goles
-minH = min(df$FTHG)
-maxH = max(df$FTHG)
-minV = min(df$FTAG)
-maxV = max(df$FTAG)
 
-jointP <- table(df$FTHG, df$FTAG)
-jointP
-for (row in 1 : (max(df$FTHG)+1)){
-  for(col in 1 : (max(df$FTAG)+1)){
-    jointP[row, col] = jointP[row, col] / totalObs
-  }
-}
-jointP
+
+
 
 
 
