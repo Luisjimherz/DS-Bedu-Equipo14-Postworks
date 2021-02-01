@@ -69,6 +69,5 @@ ggplot(hvsv, aes(FTHG, FTAG))+
   geom_tile(aes(fill=value)) +
   ggtitle("Probability for game results") +
   ylab("Visitor") +
-  xlab("Home")
-
+  xlab("Home") +
 ggsave("postworw03joint.png")
