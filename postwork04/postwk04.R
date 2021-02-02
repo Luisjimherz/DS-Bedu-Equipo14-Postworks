@@ -40,9 +40,10 @@ FTAG <- df$FTAG
 setwd("../postwork04")
 library(reshape2)
 library(ggplot2)
-quotients.tbl[1:5, 1:6]
-(quotients.df <- melt(quotients.tbl[1:5, 1:6]))  
-(quotients.df <- quotients.df[quotients.df$value != 0,]) # omitiendo valores con ceros
+dim(quotients.tbl[1:7, 1:6])
+quotients.tbl
+(quotients.df <- melt(quotients.tbl))  
+#(quotients.df <- quotients.df[quotients.df$value != 0,]) # omitiendo valores con ceros
 
 ggplot(quotients.df, aes(value)) +
   geom_histogram(binwidth=0.2) +
@@ -67,7 +68,7 @@ original.sample <- as.data.frame(original.sample)
 #  theme_light()
 #ggsave("histograma_B2.png")
 
-#install.packages('boot',dep=TRUE)
+install.packages('boot',dep=TRUE)
 library(boot)
 set.seed(89)
 
@@ -75,10 +76,13 @@ qmed <- function(data, indices){
   dt <- data[indices, ]
   return(median(dt))
 }
-bootstrap <- boot(original.sample, statistic=qmed, R=1000)
+
+bootstrap <- boot(original.sample, statistic=qmed, R=1000000)
+
 head(as.data.frame(bootstrap$t))
 bootstrap
 summary(bootstrap)
+plot(bootstrap)
 boot.ci(bootstrap, index=1)
 plot(bootstrap)
 ggplot(as.data.frame(bootstrap$t), aes(V1)) +
