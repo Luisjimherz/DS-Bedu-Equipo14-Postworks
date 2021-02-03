@@ -39,7 +39,8 @@ lapply(lista, names)
 #las seis columnas mencionadas en el punto 3 
 #(Hint 2: la función do.call podría ser utilizada).
 
-lista <- lapply(lista, mutate, Date = as.Date(Date))
+?as.Date
+lista <- lapply(lista, mutate, Date = as.Date(Date, format="%d/%m/%y"))
 
 df <- do.call(rbind, lista)
 head(df)
