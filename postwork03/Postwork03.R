@@ -20,14 +20,14 @@ FTHG <- df$FTHG ; FTAG <- df$FTAG
 (pm.FTHG <- table(FTHG)/sum(table(FTHG)))
 paste("La probabilidad marginal de que el equipo que juega en casa anote:", 
       seq(0,8), "goles, es de:", pm.FTHG)
-write.csv(p.conjunta, file="../postwork03/postwk03_pm_FTHG.csv", row.names=TRUE)
+write.csv(pm.FTHG, file="../postwork03/postwk03_pm_FTHG.csv", row.names=TRUE)
 
 # 1.2. Probabilidad marginal de que el equipo que juega como visitante 
 #      anote y goles (y=0,1,2,)
 (pm.FTAG <- table(FTAG)/sum(table(FTAG)))
 paste("La probabilidad marginal de que el equipo que juega en casa anote:", 
       seq(0,6), "goles, es de:", pm.FTAG)
-write.csv(p.conjunta, file="../postwork03/postwk03_pm_FTAG.csv", row.names=TRUE)
+write.csv(pm.FTAG, file="../postwork03/postwk03_pm_FTAG.csv", row.names=TRUE)
 
 # 1.3. Probabilidad conjunta de que el equipo que juega en casa anote x 
 #      goles y el equipo que juega como visitante anote y goles (x=0,1,2,, y=0,1,2,)
