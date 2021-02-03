@@ -1,35 +1,33 @@
 # @Postwork: Sesión 4
 # @Equipo: 14 
 
+# Librerías
+#install.packages('boot',dep=TRUE)
+library(boot)
+library(reshape2)
+library(ggplot2)
 
-setwd("postwork02")
-df <- read.csv("postwork02.csv")
-names(df)
-View(df)
-
-# 1. Obtén una tabla de cocientes al dividir estas probabilidades conjuntas entre
+# 1. Obtén una tabla de cocientes al dividir las probabilidades conjuntas entre
 #    el producto de las probabilidades marginales correspondientes.
-
-FTHG <- df$FTHG
-FTAG <- df$FTAG
-(df.tbl <- table(FTHG, FTAG)) # Tabla de frecuencias
-
-(totalObs <- sum(df.tbl)) # Observaciones totales
-
-(p.conjunta <- df.tbl / totalObs) # Tabla de frecuencias relativas
+setwd("../postwork03")
+p.conjunta <- read.table("postwk03_pc.csv", sep=",", header=T)
+p.conjunta <- pc[-1]
+rownames(pc) <- 0:8 ; colnames(pc) <- 0:6
 
 # Table of the product of marginal probabilities
+pm.FTHG <- read.table("postwk03_pm_FTHG.csv", sep=",", header=T)
+pm.FTHG <- pm.FTHG[-1]
+pm.FTAG <- read.table("postwk03_pm_FTAG.csv", sep=",", header=T)
+pm.FTAG <- pm.FTAG[-1]
 
-(pm.FTHG <- rowSums(df.tbl) / totalObs) # Probabilidades marginales FTHG
-(pm.FTAG <- colSums(df.tbl) /totalObs)  # Probabilidades marginales FTAG
+?table
 
-(FTHG.mat <-matrix(pm.FTHG, nrow=9, ncol=7)) # Matriz de probabilidades marginales
-(FTAG.mat <-matrix(pm.FTAG, nrow=9, ncol=7, byrow = T)) #Matrix of marginal p for FTAG
-
-(mp.product <- as.table(FTHG.mat * FTAG.mat)) # Tabla contingencia del producto de probabilidades marginales
+mp.product <- matrix(pm.FTHG$Freq, nrow=length(pm.FTHG$Freq), ncol=1) %*% 
+  matrix(pm.FTHG$Freq, nrow=1, ncol=length(pm.FTAG$Freq))
 
 # Tabla de cocientes p
-(quotients.tbl <- p.conjunta / mp.product)
+quotients.tbl <- p.conjunta / mp.product
+hist(quotients.tbl)
 
 # 2. Mediante un procedimiento de boostrap, obtén más cocientes similares a los obtenidos 
 #    en la tabla del punto anterior. Esto para tener una idea de las distribuciones 
@@ -38,56 +36,45 @@ FTAG <- df$FTAG
 #    en el punto 1, son iguales a 1 (en tal caso tendríamos independencia de las variables 
 #    aleatorias X y Y).
 setwd("../postwork04")
-library(reshape2)
-library(ggplot2)
-dim(quotients.tbl[1:7, 1:6])
-quotients.tbl
-(quotients.df <- melt(quotients.tbl))  
-#(quotients.df <- quotients.df[quotients.df$value != 0,]) # omitiendo valores con ceros
+
+(quotients.df <- melt(quotients.tbl[0:6,0:5]))  
 
 ggplot(quotients.df, aes(value)) +
-  geom_histogram(binwidth=0.2) +
+  geom_histogram(binwidth=0.25) +
   ggtitle("Histograma de cocientes") +
   ylab("Frecuencia") +
   xlab("") + 
   theme_light()
-ggsave("histograma.png")
+ggsave("histograma_original.png")
 
 (original.sample <- quotients.df$value)
-original.sample <- as.data.frame(original.sample)
 
+# Manual method
+#bootstrap.median <- c()
+#for(i in 1:100000){
+#  resample <- sample(original.sample, size=length(original.sample), replace=T)
+#  bootstrap.median <- cbind(bootstrap.median, median(resample))
+#}
+#hist(bootstrap.median)
 
-#(resample <- sample(original.sample, length(original.sample), replace=T))
-#(resample <- data.frame(quotients=resample))
-
-#ggplot(resample, aes(quotients)) +
-#  geom_histogram(binwidth=0.2) +
-#  ggtitle("Histograma de cocientes") +
-#  ylab("Frecuencia") +
-#  xlab("") + 
-#  theme_light()
-#ggsave("histograma_B2.png")
-
-install.packages('boot',dep=TRUE)
-library(boot)
+# boot library
 set.seed(89)
 
 qmed <- function(data, indices){
-  dt <- data[indices, ]
+  dt <- data[indices]
   return(median(dt))
 }
 
-bootstrap <- boot(original.sample, statistic=qmed, R=1000000)
+btp <- boot(original.sample, statistic=qmed, R=1000000)
+btp
+head(as.data.frame(btp$t))
+plot(btp)
+boot.ci(btp)
 
-head(as.data.frame(bootstrap$t))
-bootstrap
-summary(bootstrap)
-plot(bootstrap)
-boot.ci(bootstrap, index=1)
-plot(bootstrap)
-ggplot(as.data.frame(bootstrap$t), aes(V1)) +
-  geom_histogram(binwidth=0.009) +
+ggplot(as.data.frame(btp$t), aes(V1)) +
+  geom_histogram(binwidth=0.03) +
   ggtitle("Histograma de cocientes") +
   ylab("Frecuencia") +
   xlab("") + 
   theme_light()
+ggsave("histograma_bootstrap.png")
