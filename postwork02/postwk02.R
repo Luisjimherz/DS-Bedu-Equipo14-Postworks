@@ -1,6 +1,9 @@
 # @Postwork: Sesión 2
 # @Equipo: 14
 
+# Librerías
+library(dplyr)
+
 # 1. Importa los datos de soccer de las temporadas 2017/2018, 2018/2019 
 #    y 2019/2020 de la primera división de la liga española a R
 setwd("postwork02")
@@ -26,7 +29,6 @@ View(lista[[1]])
 #las columnas Date, HomeTeam, AwayTeam, FTHG, FTAG y FTR; 
 #esto para cada uno de los data frames. (Hint: también puedes usar lapply).
 
-library(dplyr)
 lista <- lapply(lista, select, Date, HomeTeam, AwayTeam, FTHG, FTAG, FTR)
 lapply(lista, names)
 
