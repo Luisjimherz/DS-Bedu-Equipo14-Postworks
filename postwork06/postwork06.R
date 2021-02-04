@@ -1,7 +1,7 @@
-# @Postwork: Sesión 6
+# @Postwork: SesiÃ³n 6
 # @Equipo:14
 
-# Librerías
+# LibrerÃ­as
 library(dplyr)
 
 # Importa el conjunto de datos match.data.csv a R y realiza lo siguiente:
@@ -13,16 +13,16 @@ match.data <- mutate(match.data, date = as.Date(date))
 
 match.data <- mutate(match.data, sumagoles = home.score + away.score)
 View(match.data)
-# 2. Obtén el promedio por mes de la suma de goles.
+# 2. ObtÃ©n el promedio por mes de la suma de goles.
 
-goles.mes <- match.data %>% group_by(año = format(date, "%Y"), 
+goles.mes <- match.data %>% group_by(aÃ±o = format(date, "%Y"), 
                                      mes = format(date, "%m")) %>% 
   summarise(prom = round(mean(sumagoles), 2))
 View(goles.mes)
 
 # Crea la serie de tiempo del promedio por mes de la suma de goles hasta diciembre de 2019.
-goles.mes.ts <- ts(goles.mes[goles.mes$año < 2020, ], 
-                   frequency = 12, 
+goles.mes.ts <- ts(goles.mes[goles.mes$aÃ±o < 2020, ], 
+                   frequency = 10, 
                    start = c(2010, 8), 
                    end = c(2019, 12))
 View(goles.mes.ts)
