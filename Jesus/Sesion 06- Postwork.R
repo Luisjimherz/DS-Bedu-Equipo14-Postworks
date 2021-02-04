@@ -19,7 +19,7 @@ View(goles.mes)
 
 # Crea la serie de tiempo del promedio por mes de la suma de goles hasta diciembre de 2019.
 
-goles.mes.ts <- ts(goles.mes, frequency = 12, start = c(2011, 01), end = c(2019, 12))
+goles.mes.ts <- ts(goles.mes, frequency = 10, start = c(2011, 01), end = c(2019, 12))
 View(goles.mes.ts)
 
 #  Grafica la serie de tiempo.
