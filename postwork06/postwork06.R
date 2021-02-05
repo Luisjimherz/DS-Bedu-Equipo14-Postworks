@@ -1,4 +1,4 @@
-# @Postwork: SesiÃ³n 6
+# @Postwork: Sesion 6
 # @Equipo:14
 
 # Librerías
@@ -10,15 +10,15 @@ match.data <- read.csv("match.data.csv")
 match.data <- mutate(match.data, date = as.Date(date))
 
 # 1. Agrega una nueva columna sumagoles que contenga la suma de goles por partido.
-
 match.data <- mutate(match.data, sumagoles = home.score + away.score)
 View(match.data)
-# 2. ObtÃ©n el promedio por mes de la suma de goles.
 
+# 2. Obten el promedio por mes de la suma de goles.
 goles.mes <- match.data %>% group_by(año = format(date, "%Y"), 
                                      mes = format(date, "%m")) %>% 
   summarise(prom = round(mean(sumagoles), 2))
 View(goles.mes)
+#mutate(goles.mes, año=as.numeric(año), mes=as.numeric(mes))
 
 # Crea la serie de tiempo del promedio por mes de la suma de goles hasta diciembre de 2019.
 goles.mes.ts <- ts(goles.mes[goles.mes$año < 2020, ], 
@@ -27,7 +27,12 @@ goles.mes.ts <- ts(goles.mes[goles.mes$año < 2020, ],
                    end = c(2019, 12))
 View(goles.mes.ts)
 
+
+
+
 #  Grafica la serie de tiempo.
 
 plot(goles.mes.ts)
 ts.plot(goles.mes.ts)
+
+setwd("..")
