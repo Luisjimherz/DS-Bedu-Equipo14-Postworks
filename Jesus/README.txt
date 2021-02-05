@@ -1,1 +1,3 @@
-"Subir tu vance de los postworks en este directorio"  
+Avances de postworks de cada sesion.
+
+Para el numero 8 subi solo el archivo app.R
