@@ -9,6 +9,8 @@ library(shinythemes)
 # Datos para graficas dinamicas
 df <- read.csv("match.data.csv")
 df$home.score <- as.numeric(df$home.score)
+df$home.score <- as.numeric(df$home.score)
+df.teams <- select(df, home.score, away.score)
 
 # Interfaz grafica
 ui <- 
@@ -37,14 +39,14 @@ ui <-
           # Histograma
           tabItem(tabName = "gol",
                   fluidRow(
-                    titlePanel("Histograma de las variables del data set mtcars"), 
-                    selectInput("x", "Seleccione el valor de X",
-                                choices = names(mtcars)),
+                    titlePanel("Gráfica de barra de Goles"), 
+                    selectInput("team", "Seleccione el equipo",
+                                choices = names(df.teams)),
                     
-                    selectInput("zz", "Selecciona la variable del grid", 
-                                
-                                choices = c("cyl", "vs", "gear", "carb")),
-                    box(plotOutput("plot1", height = 250)),
+                    selectInput("zz", "Selecciona al visitante", 
+                                choices = df$away.team),
+                    
+                   box(plotOutput("plot1", height = 250)),
                     
                     box(
                       title = "Controls",
@@ -53,17 +55,33 @@ ui <-
                   )
           ),
           
-          # Dispersión
+          # Graficas del postwork 3
           tabItem(tabName = "pswk3", 
                   fluidRow(
-                    titlePanel(h3("Gráficos de dispersión")),
-                    selectInput("a", "Selecciona el valor de x",
-                                choices = names(mtcars)),
-                    selectInput("y", "Seleccione el valor de y",
-                                choices = names(mtcars)),
-                    selectInput("z", "Selecciona la variable del grid", 
-                                choices = c("cyl", "vs", "gear", "carb")),
-                    box(plotOutput("output_plot", height = 300, width = 460) )
+                    titlePanel(h3("Gráficos de Probabilidades")),
+                    
+                    #selectInput("graph", "Selecciona la gráfica",
+                     #s                    choices = c("postwk03_FTAG.png"))),
+                    h4("Probabilidades Marginales"),
+                    
+                    img( src = "postwk03_FTHG.png", 
+                         height = 250, width = 250),
+                    
+                    img( src = "postwk03_FTAG.png", 
+                         height = 250, width = 250),
+                    
+                    h4("Probabilidade Conjunta"),
+                    
+                    img( src = "postwk03_Heatmap.png", 
+                         height = 250, width = 250),
+                    
+                    #selectInput("a", "Selecciona la gráfica",
+                       #         choices = names(mtcars)),
+                    #selectInput("y", "Seleccione el valor de y",
+                      #          choices = names(mtcars)),
+                    #selectInput("z", "Selecciona la variable del grid", 
+                     #           choices = c("cyl", "vs", "gear", "carb")),
+                    #box(plotOutput("output_plot", height = 300, width = 460) )
                     
                   )
           ),
@@ -98,31 +116,31 @@ server <- function(input, output) {
   #Gráfico de Histograma
   output$plot1 <- renderPlot({
     
-    x <- mtcars[,input$x]
+    x <- df[,input$team]
     bin <- seq(min(x), max(x), length.out = input$bins + 1)
     
-    ggplot(mtcars, aes(x, fill = mtcars[,input$zz])) + 
+    ggplot(df, aes(x)) + #, fill = df[,input$zz] 
       geom_histogram( breaks = bin) +
       labs( xlim = c(0, max(x))) + 
       theme_light() + 
-      xlab(input$x) + ylab("Frecuencia") + 
-      facet_grid(input$zz)
+      xlab(input$team) + ylab("Frecuencia") #+ 
+      #facet_grid(input$zz)
     
     
   })
   
-  # Gráficas de dispersión
-  output$output_plot <- renderPlot({ 
+  # Gráficas de  postwork 3
+ # output$output_plot <- renderPlot({ 
         
-        ggplot(mtcars, aes(x =  mtcars[,input$a] , y = mtcars[,input$y], 
-            colour = mtcars[,input$z] )) + 
-            geom_point() +
-            ylab(input$y) +
-            xlab(input$x) + 
-            theme_linedraw() + 
-            facet_grid(input$z)  #selección del grid
+       # ggplot(mtcars, aes(x =  mtcars[,input$a] , y = mtcars[,input$y], 
+        #    colour = mtcars[,input$z] )) + 
+         #   geom_point() +
+        #    ylab(input$y) +
+        #    xlab(input$x) + 
+         #   theme_linedraw() + 
+          #  facet_grid(input$z)  #selección del grid
         
-        })   
+       # })   
     
     #Data Table
     output$data_table <- renderDataTable( {mtcars}, 
