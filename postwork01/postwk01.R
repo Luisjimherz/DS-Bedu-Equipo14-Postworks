@@ -1,9 +1,11 @@
 # @Postwork: Sesión 1
 # @Equipo: 14
 
+repo.dir <- "C:/Users/luisf/Github/DS-Bedu-Equipo14-Postworks"
+setwd(repo.dir)
+
 # 1. Importa los datos de soccer de la temporada 2019/2020 
 #    de la primera división de la liga española a R
-
 df <- read.csv("https://www.football-data.co.uk/mmz4281/1920/SP1.csv")
 names(df)
 summary(df)

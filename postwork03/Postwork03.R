@@ -8,8 +8,9 @@ library(ggplot2)
 # 1. Con el ultimo df del postwork de la sesión 2 elabora las tablas de frecuencias
 #    relativas para estimar las siguientes probabilidades:
 
-setwd("../postwork02")
+setwd("postwork02")
 df <- read.csv("postwork02.csv")
+
 setwd("../postwork03")
 FTHG <- df$FTHG ; FTAG <- df$FTAG
 (df.tbl <- table(FTHG, FTAG))
@@ -68,3 +69,5 @@ ggplot(hvsv, aes(FTHG, FTAG, fill= Freq)) +
   geom_tile() +  geom_text(aes(label = round(Freq, 2))) + 
   ggtitle('Probabilidad conjunta')
 ggsave("postwk03_Heatmap.png")
+
+setwd("..")

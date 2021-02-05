@@ -9,7 +9,7 @@ library(ggplot2)
 
 # 1. Obtén una tabla de cocientes al dividir las probabilidades conjuntas entre
 #    el producto de las probabilidades marginales correspondientes.
-setwd("../postwork03")
+setwd("postwork03")
 p.conjunta <- read.table("postwk03_pc.csv", sep=",", header=T)
 p.conjunta <- pc[-1]
 rownames(pc) <- 0:8 ; colnames(pc) <- 0:6
@@ -78,3 +78,5 @@ ggplot(as.data.frame(btp$t), aes(V1)) +
   xlab("") + 
   theme_light()
 ggsave("histograma_bootstrap.png")
+
+setwd("..")

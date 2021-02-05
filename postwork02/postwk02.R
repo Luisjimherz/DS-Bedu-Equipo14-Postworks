@@ -49,14 +49,4 @@ View(df)
 
 write.csv(df, "postwork02.csv")
 
-
-
-
-
-
-
-
-
-
-
-
+setwd("..")
