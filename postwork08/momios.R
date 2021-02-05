@@ -223,7 +223,7 @@ for(j in 1:length(phs)){
 
 g <- data.frame(Num_Ap = 1:length(g), Capital = g)
 p <- ggplot(g, aes(x=Num_Ap, y=Capital)) + geom_line( color="purple") + geom_point() +
-  labs(x = "Número de juego", 
+  labs(x = "Numero de juego", 
        y = "Capital",
        title = "Realizando una secuencia de juegos") +
   theme(plot.title = element_text(size=12))  +
@@ -251,7 +251,7 @@ for(j in 1:length(phs)){
 
 g <- data.frame(Num_Ap = 1:length(g), Capital = g)
 p <- ggplot(g, aes(x=Num_Ap, y=Capital)) + geom_line( color="purple") + geom_point() +
-  labs(x = "Número de juego", 
+  labs(x = "Numero de juego", 
        y = "Capital",
        title = "Realizando una secuencia de juegos") +
   theme(plot.title = element_text(size=12))  +
