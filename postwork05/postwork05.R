@@ -12,7 +12,7 @@ library(fbRanks)
 #    con ayuda de la función write.csv guarde el data frame como un archivo csv 
 #    con nombre soccer.csv. Puedes colocar como argumento row.names = FALSE 
 #    en write.csv. 
-setwd("../postwork02")
+setwd("postwork02")
 SmallData <- select(read.csv("postwork02.csv"), Date, HomeTeam, FTHG, AwayTeam, FTAG)
 colnames(SmallData) <- c("date", "home.team", "home.score", "away.team", "away.score")
 head(SmallData)
