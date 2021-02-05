@@ -17,7 +17,7 @@ Las soluciones a los ejercicios del postworks del equipo 14 del curso de ciencia
  - [Postwork 5: Regresión lineal y clasificación](postwork05/postwork05.R) 
  - [Postwork 6: Series de tiempo](postwork06/postwork06.R) 
  - [Postwork 7: RStudio Cloud y BDs](postwork07/postwork07.R) 
- - [Postwork 8: Shiny](postwork08/app.R)  
+ - [Postwork 8: Shiny](postwork08/dashboard_single/app.R)  
  
 
  ### Integrantes
