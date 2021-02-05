@@ -8,8 +8,11 @@ library(shinythemes)
 
 # Datos para graficas dinamicas
 df <- read.csv("match.data.csv")
-df$home.score <- as.numeric(df$home.score)
-df$home.score <- as.numeric(df$home.score)
+df <- mutate(df, home.score=as.numeric(home.score), 
+             away.score=as.numeric(away.score), 
+             away.team=as.factor(away.team))
+#df$home.score <- as.numeric(df$home.score)
+#df$home.score <- as.numeric(df$home.score)
 df.teams <- select(df, home.score, away.score)
 
 # Interfaz grafica
@@ -123,10 +126,10 @@ server <- function(input, output) {
   output$plot1 <- renderPlot({
     
     x <- df[,input$team]
-    y <- df.teams[, names(df.teams) != input$team] 
+    y <-  df[, "away.team"]               
     bin <- seq(min(x), max(x), length.out = input$bins + 1)
     
-    ggplot(df, aes(x)) + #, fill = df[,input$zz] 
+    ggplot(df, aes(x, fill = y)) + 
       geom_histogram( breaks = bin) +
       labs( xlim = c(0, max(x))) + 
       theme_light() + 
