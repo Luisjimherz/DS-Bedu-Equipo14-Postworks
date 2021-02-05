@@ -19,7 +19,7 @@ con$insert(data)
 con$count(query = '{}')
 
 # Realiza una consulta utilizando la sintaxis de Mongodb, en la base de datos para conocer el número de goles que metió el Real Madrid el 20 de diciembre de 2015 y contra que equipo jugó, ¿perdió ó fue goleada?
-
+#"2017-08-27"
 partido <- con$aggregate(pipeline = 
 '[
   {
@@ -53,7 +53,7 @@ partido <- con$aggregate(pipeline =
           "HomeTeam": "Real Madrid"
         },
         {
-          "Date": "2017-08-27"
+          "Date": "2015-12-20" 
         }
       ]
     }
