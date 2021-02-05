@@ -19,13 +19,13 @@ ui <-
     
     dashboardPage(
       
-      dashboardHeader(title = "Basic dashboard"),
+      dashboardHeader(title = "Pronósticos de La Liga Española de Soccer"),
       
       dashboardSidebar(
         
         sidebarMenu(
           menuItem("Goles", tabName = "gol", icon = icon("dashboard")), # Dashboard -> gol
-          menuItem("Postwork03", tabName = "pswk3", icon = icon("area-chart")), # graph -> pswk3
+          menuItem("Probabilidades", tabName = "pswk3", icon = icon("area-chart")), # graph -> pswk3
           menuItem("Tabla", tabName = "data_table", icon = icon("table")),
           menuItem("Momios", tabName = "mom", icon = icon("file-picture-o")) # img -> mom
         )
@@ -43,10 +43,7 @@ ui <-
                     selectInput("team", "Seleccione el equipo",
                                 choices = names(df.teams)),
                     
-                    selectInput("zz", "Selecciona al visitante", 
-                                choices = df$away.team),
-                    
-                   box(plotOutput("plot1", height = 250)),
+                   box(plotOutput("plot1", height = 650)),
                     
                     box(
                       title = "Controls",
@@ -126,14 +123,15 @@ server <- function(input, output) {
   output$plot1 <- renderPlot({
     
     x <- df[,input$team]
+    y <- df.teams[, names(df.teams) != input$team] 
     bin <- seq(min(x), max(x), length.out = input$bins + 1)
     
     ggplot(df, aes(x)) + #, fill = df[,input$zz] 
       geom_histogram( breaks = bin) +
       labs( xlim = c(0, max(x))) + 
       theme_light() + 
-      xlab(input$team) + ylab("Frecuencia") #+ 
-      #facet_grid(input$zz)
+      xlab(input$team) + ylab("Frecuencia") + 
+      facet_grid(y)
     
     
   })
