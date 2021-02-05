@@ -3,6 +3,7 @@
 
 # Librerías
 library(dplyr)
+library(ggplot2)
 
 # Importa el conjunto de datos match.data.csv a R y realiza lo siguiente:
 setwd("postwork06")
@@ -20,19 +21,15 @@ goles.mes <- match.data %>% group_by(año = format(date, "%Y"),
 View(goles.mes)
 #mutate(goles.mes, año=as.numeric(año), mes=as.numeric(mes))
 
-# Crea la serie de tiempo del promedio por mes de la suma de goles hasta diciembre de 2019.
-goles.mes.ts <- ts(goles.mes[goles.mes$año < 2020, ], 
-                   frequency = 10, 
+# Crea la serie de tiempo del promedio por mes de la suma de goles hasta 
+# diciembre de 2019.
+goles.mes.ts <- ts(goles.mes[goles.mes$año < 2020, ]$prom, 
+                   frequency = 12, 
                    start = c(2010, 8), 
                    end = c(2019, 12))
 View(goles.mes.ts)
 
-
-
-
 #  Grafica la serie de tiempo.
-
-plot(goles.mes.ts)
 ts.plot(goles.mes.ts)
 
 setwd("..")
