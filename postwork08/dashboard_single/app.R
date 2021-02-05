@@ -90,7 +90,7 @@ ui <-
           
           tabItem(tabName = "data_table",
                   fluidRow(        
-                    titlePanel(h3("Data Table")),
+                    titlePanel(h3("Tabla de marcadores")),
                     dataTableOutput ("data_table")
                   )
           ), 
@@ -143,7 +143,7 @@ server <- function(input, output) {
        # })   
     
     #Data Table
-    output$data_table <- renderDataTable( {mtcars}, 
+    output$data_table <- renderDataTable( {df}, 
                                           options = list(aLengthMenu = c(5,25,50),
                                                          iDisplayLength = 5)
         )
