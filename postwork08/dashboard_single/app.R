@@ -87,7 +87,7 @@ ui <-
           ),
           
           
-          
+          # Tabla de marcadores
           tabItem(tabName = "data_table",
                   fluidRow(        
                     titlePanel(h3("Tabla de marcadores")),
@@ -95,10 +95,19 @@ ui <-
                   )
           ), 
           
+          # Momios
           tabItem(tabName = "mom",
                   fluidRow(
-                    titlePanel(h3("Imágen de calor para la correlación de las variables")),
-                    img( src = "cor_mtcars.png", 
+                    titlePanel(h3("Consulta los momios")),
+                    
+                    h4("Momios máximos"),
+                    
+                    img( src = "momios_max.png", 
+                         height = 350, width = 350),
+                    
+                    h4("Momios promedio"),
+                    
+                    img( src = "momios_mean.png", 
                          height = 350, width = 350)
                   )
           )
@@ -129,19 +138,6 @@ server <- function(input, output) {
     
   })
   
-  # Gráficas de  postwork 3
- # output$output_plot <- renderPlot({ 
-        
-       # ggplot(mtcars, aes(x =  mtcars[,input$a] , y = mtcars[,input$y], 
-        #    colour = mtcars[,input$z] )) + 
-         #   geom_point() +
-        #    ylab(input$y) +
-        #    xlab(input$x) + 
-         #   theme_linedraw() + 
-          #  facet_grid(input$z)  #selección del grid
-        
-       # })   
-    
     #Data Table
     output$data_table <- renderDataTable( {df}, 
                                           options = list(aLengthMenu = c(5,25,50),
