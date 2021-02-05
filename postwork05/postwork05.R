@@ -50,3 +50,4 @@ ranking <- rank.teams(scores=anotaciones, teams=equipos,
 #    y fecha[n] que deberá especificar en date.
 predict(ranking, min.date=fechas[n], max.date=fechas[n])
 
+setwd("..")
