@@ -1,8 +1,10 @@
-# install.packages("mongolite")
-# setwd("~/Downloads/BEDU/postwork7/")
-# dir()
+# @Postwork: Sesion 7
+# @Equipo:14
+
+# Librerías
 library(mongolite)
 
+setwd("postwork7/")
 con <- mongo(
   collection = "match",
   db = "match_games",
@@ -12,19 +14,16 @@ con <- mongo(
 )
 
 # Alojamiento del fichero a la base de datos de MongoDB
-
-data <- read.csv("match.data.csv")
-View(data)
-con$insert(data)
+# data <- read.csv("match.data.csv")
+# View(data)
+# con$insert(data)
 
 # Conteo de registros en la base de datos
-
 con$count(query = '{}')
 
 # Realiza una consulta utilizando la sintaxis de Mongodb, en la base de datos 
 # para conocer el número de goles que metió el Real Madrid el 20 de 
 # diciembre de 2015 y contra que equipo jugó, ¿Perdió o fue goleada?
-
 partido <- con$aggregate(pipeline = 
 '[
   {
@@ -68,5 +67,6 @@ partido <- con$aggregate(pipeline =
 )
 partido
 
-
 con$disconnect()
+
+setwd("..")
