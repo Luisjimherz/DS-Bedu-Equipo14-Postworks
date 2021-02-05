@@ -3,7 +3,6 @@
 
 # Librerías
 library(dplyr)
-install.packages("fbRanks")
 library(fbRanks)
 
 # 1. A partir del conjunto de datos de soccer de la liga española crea 
@@ -25,9 +24,8 @@ write.csv(SmallData, file="soccer.csv", row.names=F)
 #    listasoccer. Se creará una lista con los elementos scores y teams que son 
 #    data frames listos para la función rank.teams. Asigna estos data frames 
 #    a variables llamadas anotaciones y equipos. 
-?create.fbRanks.dataframes
+
 lista.soccer <- create.fbRanks.dataframes("soccer.csv")
-lista.soccer
 anotaciones <- lista.soccer$scores
 equipos <- lista.soccer$teams
 
@@ -50,6 +48,6 @@ ranking <- rank.teams(scores=anotaciones, teams=equipos,
 #    que se jugaron en la última fecha del vector de fechas fecha. Esto lo 
 #    puedes hacer con ayuda de la función predict y usando como argumentos ranking
 #    y fecha[n] que deberá especificar en date.
-?predict
 predict(ranking, min.date=fechas[n], max.date=fechas[n])
 
+setwd("..")
